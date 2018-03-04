@@ -16,9 +16,9 @@ def get_total_page(html):
 
 def write_csv(date):
     with open('spisok.csv', 'a') as f:
-        writer = csv.writer(f)
+        write = csv.writer(f)
 
-        writer.writerow( (date['title'],
+        write.writerow( (date['title'],
                           date['url'],
                           date['price']) )
 
@@ -61,6 +61,7 @@ def main():
     for i in range(1, 3):
         url_gen = base_url + page_part + str(i)
         html = get_html(url_gen)
+        get_page_data(html)
 
 
 
