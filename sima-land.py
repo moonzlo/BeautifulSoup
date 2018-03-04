@@ -49,7 +49,7 @@ def get_page_data(html):
         try:
             html = get_html(url)
             sup = BeautifulSoup(html, 'lxml')
-            info = sup.find('ul', class_='g-ul b-properties').text
+            info = sup.find('li', class_='b-properties__header').text
 
         except:
             info = ''
@@ -70,7 +70,7 @@ def main():
     base_url = 'https://www.sima-land.ru/igrushki/razvivayuschie-i-obuchayuschie-igrushki/'
     page_part = 'p'
     total_pages = get_total_page(get_html(url))
-    for i in range(1, 5):
+    for i in range(1):
         url_gen = base_url + page_part + str(i)
         html = get_html(url_gen)
         get_page_data(html)
