@@ -20,7 +20,8 @@ def write_csv(date):
 
         write.writerow( (date['title'],
                           date['url'],
-                          date['price']) )
+                          date['price'],
+                          date['info']) )
 
 
 
@@ -36,6 +37,7 @@ def get_page_data(html):
             title = ''
         try:
             url = 'https://sima-land.ru' + ad.find('div', class_='catalog__item-details delivery-details').find('a').get('href')
+
         except:
             url = ''
 
@@ -44,9 +46,19 @@ def get_page_data(html):
         except:
             price = ''
 
+        try:
+            html = get_html(url)
+            sup = BeautifulSoup(html, 'lxml')
+            info = sup.find('ul', class_='g-ul b-properties').text
+
+        except:
+            info = ''
+
+
         data = {'title':title,
                 'url':url,
-                'price':price}
+                'price':price,
+                'info':info}
 
         write_csv(data)
 
@@ -58,7 +70,7 @@ def main():
     base_url = 'https://www.sima-land.ru/igrushki/razvivayuschie-i-obuchayuschie-igrushki/'
     page_part = 'p'
     total_pages = get_total_page(get_html(url))
-    for i in range(1, 3):
+    for i in range(1, 5):
         url_gen = base_url + page_part + str(i)
         html = get_html(url_gen)
         get_page_data(html)
