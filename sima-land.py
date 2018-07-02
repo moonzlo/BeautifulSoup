@@ -7,7 +7,7 @@ def get_html(url):
     return r.text
 
 def get_total_page(html):
-    soup = BeautifulSoup(html, 'lxml')
+    soup = BeautifulSoup(html, 'html.parser')
 
     pages = soup.find('div', class_='b-pagination').find_all('a', class_='b-pagination__page')[-1].get('href')
     total_pages = pages.split('p')[1].split('/')[0]
@@ -48,7 +48,7 @@ def get_page_data(html):
 
         try:
             html = get_html(url)
-            sup = BeautifulSoup(html, 'lxml')
+            sup = BeautifulSoup(html, 'html.parser')
             info = sup.find('li', class_='b-properties__header').text
 
         except:
